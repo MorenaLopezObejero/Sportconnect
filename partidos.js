@@ -42,12 +42,12 @@ const deletePartido = async (req, res) => {
 
 
 
-const getPartido = async (_, res) => {
+const getPartido = async (req, res) => {
     try {
-        const [albumes] = await conn.query(
+        const [partido] = await conn.query(
             `SELECT * FROM partido WHERE id = ?`
         );
-        res.json(albumes);
+        res.json(partido);
     }
     catch (e) {
         res.status(500).json({ error: 'No se puede mostrar el partido' });
