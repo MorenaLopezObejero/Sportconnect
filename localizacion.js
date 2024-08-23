@@ -20,7 +20,6 @@ const getPartidosCercanos = async (req, res) => {
         res.json(result.rows);
     } catch (e) {
         res.status(500).json({ error: 'No se pudieron obtener los partidos cercanos' });
-    } finally {
-        client.end();
+        await client.end();
     }
-};
+}
