@@ -12,8 +12,8 @@ app.post("/sport", registro.register);
 
 //partidos 
 app.post("/createPartido", partido.createPartido);
-app.post("/deletePartido", partido.deletePartido);
-app.post("/getPartido", partido.getPartido);
-
+app.delete("/deletePartido", partido.deletePartido);
+app.get("/getPartido", partido.getPartido);
+app.put("/updatepartido", partido.updatePartido);
 
 app.listen()

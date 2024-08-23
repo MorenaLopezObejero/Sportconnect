@@ -34,6 +34,7 @@ const partidonew = async (req,res) => {
     }
     catch (error){
         console.log(err.message);
+        await client.end();
     }
 }
 

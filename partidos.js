@@ -58,7 +58,7 @@ const getPartido = async (req, res) => {
 
 
 const updatePartido = async (req, res) =>{
-    const cliente = new Cliente(config);
+    const client = new Client(config);
     try{
         await conn.query(
             `UPDATE partido SET hora = ?, fecha = ? cancha id = ?`,
@@ -73,6 +73,7 @@ const updatePartido = async (req, res) =>{
 }
 
 
+/* lo saque de chat
 const getParticipantes = async (req, res) => {
     const { id_partido } = req.params;
     const client = new Client(config);
@@ -86,6 +87,14 @@ const getParticipantes = async (req, res) => {
         res.status(500).json({ error: 'No se pudieron obtener los participantes' });
         await client.end();
     } 
-};
+};*/
 
 
+const partido = {
+    updatePartido,
+    getPartido,
+    deletePartido,
+    createPartido    
+}
+
+export default partido;
