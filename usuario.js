@@ -25,22 +25,8 @@ const register = async (req,res) => {
     }
 };
 
-const partidonew = async (req,res) => {
-    try{
-        const resul = await client.query(
-            'INSERT INTO invitacion (partido, usuario_crea, usuario_recibe) VALUES ($1, $2, $3)', 
-            [partido, usuario_crea, usuario_recibe] = req.body);
-        res.json({id: resul.insertID})
-    }
-    catch (error){
-        console.log(err.message);
-        await client.end();
-    }
-}
-
 const registro = {
-    register,
-    partidonew,
+    register
 };
 
 export default registro;
