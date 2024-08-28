@@ -1,6 +1,6 @@
-import {conn} from './debugconfig.js'
+import { conn } from './debugconfig.js'
 import pkg from 'pg';
-const {Client} = pkg;
+const { Client } = pkg;
 const client = new Client(conn);
 await client.connect();
 const createPartido = async (req, res) => {
@@ -12,7 +12,7 @@ const createPartido = async (req, res) => {
         res.json({ id: result.createPartido });
     }
     catch (e) {
-        res.status(500).json({ error: 'Ya hay un partido registrado con estos datos'});
+        res.status(500).json({ error: 'Ya hay un partido registrado con estos datos' });
         await client.end();
     }
 };
@@ -29,7 +29,7 @@ const deletePartido = async (req, res) => {
         res.json({ message: "Partido eliminado" });
     }
     catch (e) {
-        res.json ({error: 'El partido no pudo ser eliminado correctamente'});
+        res.json({ error: 'El partido no pudo ser eliminado correctamente' });
         await client.end();
     }
 
@@ -54,9 +54,9 @@ const getPartido = async (req, res) => {
 }
 
 
-const updatePartido = async (req, res) =>{
+const updatePartido = async (req, res) => {
     const cliente = new Cliente(config);
-    try{
+    try {
         await conn.query(
             `UPDATE partido SET hora = ?, fecha = ? cancha id = ?`,
             [req.body.hora, req.body.fecha, req.body.cancha]
@@ -86,12 +86,28 @@ const getParticipantes = async (req, res) => {
     }
 };
 
+const createCancha = async (req, res) => {
+    try {
+        const [result] = await conn.query(
+            `INSERT INTO cancha ( num_cancha, nom_cancha, superficie, cantidad, valor) VALUES ($1, $2, $3, $4, $5)`,
+            [req.body.num_cancha, req.body.nom_cancha, req.body.superficie, req.body.cantidad, req.body.valor]
+        );
+        res.json({ id: result.createCancha });
+    }
+    catch (e) {
+        res.status(500).json({ error: 'Ya hay un cancha registrada con estos datos' });
+        await client.end();
+    }
+};
+
+
 
 const partido = {
     updatePartido,
     getPartido,
     deletePartido,
-    createPartido    
+    createPartido,
+    createCancha,
 }
 
 export default partido

@@ -11,6 +11,7 @@ app.post("/createPartido", partido.createPartido);
 app.delete("/deletePartido", partido.deletePartido);
 app.get("/getPartido", partido.getPartido);
 app.put("/updatepartido", partido.updatePartido);
+app.post("/createCancha", cancha.createCancha);
 
 app.listen(PORT, () => {
     console.log('API funciona at http://localhost:${PORT}')
