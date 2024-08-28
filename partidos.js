@@ -1,29 +1,26 @@
-import {config} from './dbconfig.js'
-await client.connect();
+import {conn} from './debugconfig.js'
 import pkg from 'pg';
 const {Client} = pkg;
-const client = new Client(config);
-
+const client = new Client(conn);
+await client.connect();
 const createPartido = async (req, res) => {
-    const client = new Client(config);
     try {
         const [result] = await conn.query(
             `INSERT INTO partidos (hora, fecha, cancha) VALUES ($1, $2, $3)`,
             [req.body.hora, req.body.fecha, req.body.cancha] //???
         );
         res.json({ id: result.createPartido });
-}
-catch (e) {
-    res.status(500).json({ error: 'Ya hay un partido registrado con estos datos'});
-    await client.end();
-}
+    }
+    catch (e) {
+        res.status(500).json({ error: 'Ya hay un partido registrado con estos datos'});
+        await client.end();
+    }
 };
 
 
 
 
 const deletePartido = async (req, res) => {
-    const client = new Client(config);
     try {
         await conn.query(
             `DELETE FROM partido WHERE id = $1`,

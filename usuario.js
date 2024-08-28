@@ -1,7 +1,7 @@
-import {config} from './debugconfig.js';
+import {conn} from './debugconfig.js';
 import pkg from 'pg';
 const {Client} = pkg;
-const client = new Client(config);
+const client = new Client(conn);
 await client.connect();
 
 const register = async (req,res) => {
@@ -40,7 +40,7 @@ const partidonew = async (req,res) => {
 
 const registro = {
     register,
-    partidonew
+    partidonew,
 };
 
 export default registro;
