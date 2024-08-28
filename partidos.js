@@ -58,7 +58,7 @@ const updatePartido = async (req, res) => {
     const cliente = new Cliente(config);
     try {
         await conn.query(
-            `UPDATE partido SET hora = ?, fecha = ? cancha id = ?`,
+            `UPDATE partido SET hora = ?, fecha = ?, cancha = ?`,
             [req.body.hora, req.body.fecha, req.body.cancha]
         );
         res.json({ id: req.params.id });
@@ -100,6 +100,20 @@ const createCancha = async (req, res) => {
     }
 };
 
+const deleteCancha = async (req, res) => {
+    try {
+        await conn.query(
+            `DELETE FROM cancha WHERE id = $1`,
+            [req.params.id]
+        );
+        res.json({ message: "Cancha eliminado" });
+    }
+    catch (e) {
+        res.json({ error: 'La cancha no pudo ser eliminada correctamente' });
+        await client.end();
+    }
+
+}
 
 
 const partido = {
@@ -108,6 +122,7 @@ const partido = {
     deletePartido,
     createPartido,
     createCancha,
+    deleteCancha,
 }
 
 export default partido
