@@ -13,6 +13,7 @@ const register = async (req,res) => {
 
         if (result.rows [0] = null){
             const query = 'INSERT INTO usuario (email, foto_perfil, genero, nombre, fecha_nacimiento, zona, contraseña) values ($1, $2, $3, $4, $5, $6, $7)'
+            
         }
         else{
             res.json ({error: 'Ya hay una cuenta registrada con ese email'})
@@ -21,12 +22,17 @@ const register = async (req,res) => {
     catch (err) {
         console.error(err);
         await client.end();
-        res.json ({error: 'Hubo un error al registrarsel'});
+        res.json ({error: 'Hubo un error al registrarse'});
     }
 };
 
-const registro = {
-    register
+const inicioses = async (req, res) => {
+
+};
+
+const regisyinises = {
+    register,
+    inicioses
 };
 
 export default registro;

@@ -1,11 +1,11 @@
 import express from "express";
 const app = express();
 const PORT = 8000;
-import registro from "./usuario.js";
+import regisyinises from "./usuario.js";
 import partido from "./partidos.js";
 import cancha from "./cancha.js"; 
 //usuario
-app.post("/sport", registro.register);
+app.post("/sport", regisyinises.register);
 
 //partidos 
 app.post("/createPartido", partido.createPartido);
