@@ -4,6 +4,10 @@ const { Client } = pkg;
 const client = new Client(conn);
 await client.connect();
 
+const prueba = async (req, res) => {
+    res.json({"hola": "hola"})
+}
+
 const createPartido = async (req, res) => {
     try {
         const [result] = await conn.query(
@@ -48,6 +52,7 @@ const getPartido = async (req, res) => {
         res.status(500).json({ error: 'No se puede mostrar el partido' });
         await client.end();
     }
+    res.message({message: "hola buenas"})
 
 }
 
@@ -102,6 +107,7 @@ const getParticipantes = async (req, res) => {
 
 
 const partido = {
+    prueba,
     updatePartido,
     getPartido,
     deletePartido,

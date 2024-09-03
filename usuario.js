@@ -35,4 +35,4 @@ const regisyinises = {
     inicioses
 };
 
-export default registro;
+export default regisyinises;

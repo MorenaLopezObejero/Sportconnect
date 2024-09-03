@@ -1,11 +1,13 @@
 import express from "express";
 const app = express();
+app.use(express.json());
 const PORT = 8000;
 import regisyinises from "./usuario.js";
 import partido from "./partidos.js";
 import cancha from "./cancha.js"; 
 //usuario
 app.post("/sport", regisyinises.register);
+/* app.use("/", partido.prueba) */
 
 //partidos 
 app.post("/createPartido", partido.createPartido);
@@ -20,5 +22,5 @@ app.delete("/deleteCancha", cancha.deleteCancha);
 
 
 app.listen(PORT, () => {
-    console.log('API funciona at http://localhost:${PORT}')
+    console.log(`API funciona at http://localhost:${PORT}`)
 });
