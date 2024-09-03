@@ -18,9 +18,6 @@ const createPartido = async (req, res) => {
     }
 };
 
-
-
-
 const deletePartido = async (req, res) => {
     try {
         await conn.query(
@@ -109,7 +106,7 @@ const partido = {
     getPartido,
     deletePartido,
     createPartido,
-    getPartidoDate,
+    getPartidoDate
 }
 
 export default partido
