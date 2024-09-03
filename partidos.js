@@ -54,6 +54,21 @@ const getPartido = async (req, res) => {
 
 }
 
+const getPartidoDate = async (req, res) => {
+    const client = new Client(config);
+    try {
+        const [partido] = await conn.query(
+            `SELECT * FROM "partido" WHERE "fecha" = $1`
+        );
+        res.json(partido);
+    }
+    catch (e) {
+        res.status(500).json({ error: 'No sepuede mostrar el partido' });
+        await client.end();
+    }
+
+}
+
 
 const updatePartido = async (req, res) => {
     const cliente = new Cliente(config);
@@ -94,10 +109,7 @@ const partido = {
     getPartido,
     deletePartido,
     createPartido,
-    createCancha,
-    deleteCancha,
-    getCancha,
-    updateCancha,
+    getPartidoDate,
 }
 
 export default partido

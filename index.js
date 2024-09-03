@@ -12,6 +12,7 @@ app.post("/createPartido", partido.createPartido);
 app.delete("/deletePartido", partido.deletePartido);
 app.get("/getPartido", partido.getPartido);
 app.put("/updatepartido", partido.updatePartido);
+app.get("/getPartidoDate", partido.getPartido)
 app.post("/createCancha", cancha.createCancha);
 app.get("/getCancha", cancha.getCancha);
 app.delete("/deleteCancha", cancha.deleteCancha);
