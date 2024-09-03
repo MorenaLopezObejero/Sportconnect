@@ -1,7 +1,7 @@
-import { conn } from './debugconfig.js'
+import { config } from './debugconfig.js'
 import pkg from 'pg';
 const { Client } = pkg;
-const client = new Client(conn);
+const client = new Client(config);
 await client.connect();
 
 const prueba = async (req, res) => {

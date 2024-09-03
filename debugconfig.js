@@ -1,4 +1,4 @@
-export const conn = {
+export const config = {
     user: "default",
     host: "ep-little-shadow-a4frsyb1.us-east-1.aws.neon.tech",
     database: "verceldb",
