@@ -10,21 +10,22 @@ const prueba = async (req, res) => {
 
 const createPartido = async (req, res) => {
     try {
-        const [result] = await conn.query(
+        await client.query(
             `INSERT INTO "partido" ("hora", "fecha", "cancha") VALUES ($1, $2, $3)`,
             [req.body.hora, req.body.fecha, req.body.cancha] //???
         );
-        res.json({ id: result.createPartido });
+        res.json({message: "Lo hiciste bien"});
     }
     catch (e) {
-        res.status(500).json({ error: 'Ya hay un partido registrado con estos datos' });
+        console.error(e);
+        res.status(500).json({ error: e.message });
         await client.end();
     }
 };
 
 const deletePartido = async (req, res) => {
     try {
-        await conn.query(
+        await client.query(
             `DELETE FROM "partido" WHERE "id_partido" = $1`,
             [req.params.id]
         );
@@ -38,12 +39,10 @@ const deletePartido = async (req, res) => {
 }
 
 
-
-
 const getPartido = async (req, res) => {
     const client = new Client(config);
     try {
-        const [partido] = await conn.query(
+        const [partido] = await client.query(
             `SELECT * FROM "partido" WHERE "id_partido" = $1`
         );
         res.json(partido);
@@ -59,10 +58,10 @@ const getPartido = async (req, res) => {
 const getPartidoDate = async (req, res) => {
     const client = new Client(config);
     try {
-        const [partido] = await conn.query(
+        const {rows} = await client.query(
             `SELECT * FROM "partido" WHERE "fecha" = $1`
         );
-        res.json(partido);
+        res.json(rows[0]);
     }
     catch (e) {
         res.status(500).json({ error: 'No sepuede mostrar el partido' });
@@ -75,11 +74,12 @@ const getPartidoDate = async (req, res) => {
 const updatePartido = async (req, res) => {
     const cliente = new Cliente(config);
     try {
-        await conn.query(
+        await client.query(
             `UPDATE "partido" SET "hora" = ?, "fecha" = ?, "cancha" = ?`,
             [req.body.hora, req.body.fecha, req.body.cancha]
         );
         res.json({ id: req.params.id });
+        
     } catch (e) {
         res.status(500).json({ error: e.message });
         await client.end();

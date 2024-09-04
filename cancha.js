@@ -6,40 +6,41 @@ await client.connect();
 
 const createCancha = async (req, res) => {
     try {
-        const [result] = await conn.query(
+        await client.query(
             `INSERT INTO "cancha" ( "num_cancha", "nom_cancha", "superficie", "cantidad", "valor") VALUES ($1, $2, $3, $4, $5)`,
             [req.body.num_cancha, req.body.nom_cancha, req.body.superficie, req.body.cantidad, req.body.valor]
         );
-        res.json({ id: result.createCancha });
+        res.json({message: "Lo hiciste bien"});
     }
     catch (e) {
-        res.status(500).json({ error: 'Ya hay un cancha registrada con estos datos' });
+        console.error(e);
+        res.status(500).json({ error: e.message });
         await client.end();
     }
 };
 
 const deleteCancha = async (req, res) => {
     try {
-        await conn.query(
+        await client.query(
             `DELETE FROM "cancha" WHERE "id" = $1`,
             [req.params.id]
         );
         res.json({ message: "Cancha eliminado" });
     }
     catch (e) {
-        res.json({ error: 'La cancha no pudo ser eliminada correctamente' });
+        console.error(e);
+        res.status(500).json({ error: e.message });
         await client.end();
     }
 
 }
 
 const getCancha = async (req, res) => {
-    const client = new Client(config);
     try {
-        const [cancha] = await conn.query(
+        const {rows} = await client.query(
             `SELECT * FROM "cancha" WHERE "id" = $1`
         );
-        res.json(cancha);
+        res.json(rows[0]);
     }
     catch (e) {
         res.status(500).json({ error: 'No se puede mostrar la cancha' });
@@ -49,9 +50,8 @@ const getCancha = async (req, res) => {
 }
 
 const updateCancha = async (req, res) => {
-    const cliente = new Cliente(config);
     try {
-        await conn.query(
+        await client.query(
             `UPDATE "cancha" SET "num_cancha" = ?, "nom_cancha" = ?, "superficie" = ?, "cantidad" = ?, "valor" = ?,`
             [req.body.num_cancha, req.body.nom_cancha, req.body.superficie, req.body.cantidad, req.body.valor]
         );

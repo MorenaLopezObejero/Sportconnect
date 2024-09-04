@@ -11,13 +11,13 @@ app.post("/sport", regisyinises.register);
 
 //partidos 
 app.post("/createPartido", partido.createPartido);
-app.delete("/deletePartido", partido.deletePartido);
-app.get("/getPartido", partido.getPartido);
+app.delete("/deletePartido/id", partido.deletePartido);
+app.get("/getPartido", partido.getPartido); //listo
 app.put("/updatepartido", partido.updatePartido);
-app.get("/getPartidoDate", partido.getPartido)
+app.get("/getPartidoDate", partido.getPartido) //listo
 app.post("/createCancha", cancha.createCancha);
-app.get("/getCancha", cancha.getCancha);
-app.delete("/deleteCancha", cancha.deleteCancha);
+app.get("/getCancha", cancha.getCancha); //listo
+app.delete("/deleteCancha/:id", cancha.deleteCancha);
 
 
 
