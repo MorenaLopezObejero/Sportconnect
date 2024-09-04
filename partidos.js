@@ -52,7 +52,7 @@ const getPartido = async (req, res) => {
         res.status(500).json({ error: 'No se puede mostrar el partido' });
         await client.end();
     }
-    res.message({message: "hola buenas"})
+    
 
 }
 
