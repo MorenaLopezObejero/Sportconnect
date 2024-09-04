@@ -7,7 +7,7 @@ import partido from "./partidos.js";
 import cancha from "./cancha.js"; 
 //usuario
 app.post("/sport", regisyinises.register);
-/* app.use("/", partido.prueba) */
+
 
 //partidos 
 app.post("/createPartido", partido.createPartido);
