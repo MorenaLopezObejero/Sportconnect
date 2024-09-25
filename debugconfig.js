@@ -1,7 +1,8 @@
 import postgresql from 'pg';
-const { config } = postgresql;
+import pkg from 'pg';
+const { Client } = pkg;
 
-const client = new config({
+const client = new Client({
     user: "default",
     host: "ep-little-shadow-a4frsyb1.us-east-1.aws.neon.tech",
     database: "verceldb",
@@ -9,5 +10,7 @@ const client = new config({
     port: 5432,
     ssl: true
 });
+
+await client.connect();
 
 export default client;

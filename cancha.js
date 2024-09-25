@@ -1,8 +1,4 @@
-import {config} from './debugconfig.js'
-import pkg from 'pg';
-const { Client } = pkg;
-const client = new Client(config);
-await client.connect();
+import client from './debugconfig.js'
 
 const createCancha = async (req, res) => {
     try {
@@ -15,7 +11,7 @@ const createCancha = async (req, res) => {
     catch (e) {
         console.error(e);
         res.status(500).json({ error: e.message });
-        await client.end();
+        //await client.end();
     }
 };
 
