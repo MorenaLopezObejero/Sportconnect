@@ -31,12 +31,26 @@ const deleteCancha = async (req, res) => {
 
 }
 
+const getCanchaById = async (req, res) => {
+    try {
+        const {rows} = await client.query(
+            `SELECT * FROM "cancha" WHERE "id" = $1`,[req.params.id]
+        );
+        res.json(rows[0]);
+    }
+    catch (e) {
+        res.status(500).json({ error: 'No se puede mostrar la cancha' });
+        await client.end();
+    }
+
+}
+
 const getCancha = async (req, res) => {
     try {
         const {rows} = await client.query(
-            `SELECT * FROM "cancha" WHERE "id" = $1`
+            `SELECT * FROM "cancha"`
         );
-        res.json(rows[0]);
+        res.json(rows);
     }
     catch (e) {
         res.status(500).json({ error: 'No se puede mostrar la cancha' });
