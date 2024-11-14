@@ -16,6 +16,7 @@ app.post("/login", regisyinises.inicioses);
 app.post("/createPartido", partido.createPartido); //listo 
 app.delete("/deletePartido/:id", partido.deletePartido); //listo
 app.get("/getPartido", partido.getPartido); //listo
+app.get("/getPartidos", partido.getPartidos); //listo
 app.put("/updatepartido", partido.updatePartido);
 app.get("/getPartidoDate", partido.getPartido) //listo
 app.post("/createCancha", cancha.createCancha); //listo

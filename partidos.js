@@ -36,7 +36,7 @@ const deletePartido = async (req, res) => {
 
 
 const getPartido = async (req, res) => {
-    const client = new Client(config);
+    //const client = new Client(config);
     try {
         const [partido] = await client.query(
             `SELECT * FROM "partido" WHERE "id_partido" = $1`
@@ -47,9 +47,22 @@ const getPartido = async (req, res) => {
         res.status(500).json({ error: 'No se puede mostrar el partido' });
         await client.end();
     }
-    
-
 }
+
+const getPartidos = async (req, res) => {
+    //const client = new Client(config);
+    try {
+        const partidos = await client.query(
+            `SELECT * FROM partido p, cancha c where p.cancha = c.id`
+        );
+        res.json(partidos.rows);
+    }
+    catch (e) {
+        res.status(500).json({ error: 'No se puede mostrar el partido' });
+        await client.end();
+    }
+}
+
 
 const getPartidoDate = async (req, res) => {
     const client = new Client(config);
@@ -108,7 +121,8 @@ const partido = {
     getPartido,
     deletePartido,
     createPartido,
-    getPartidoDate
+    getPartidoDate,
+    getPartidos
 }
 
 export default partido
