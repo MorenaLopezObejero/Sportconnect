@@ -65,10 +65,11 @@ const getPartidos = async (req, res) => {
 
 
 const getPartidoDate = async (req, res) => {
-    const client = new Client(config);
+    //const client = new Client(config);
     try {
         const {rows} = await client.query(
-            `SELECT * FROM "partido" WHERE "fecha" = $1`
+            `SELECT * FROM partido p, cancha c where p.cancha and "fecha" = $1`,
+            [req.params.fecha]
         );
         res.json(rows[0]);
     }
