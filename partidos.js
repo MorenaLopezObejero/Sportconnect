@@ -65,20 +65,29 @@ const getPartidos = async (req, res) => {
 
 
 const getPartidoDate = async (req, res) => {
-    //const client = new Client(config);
+    // const client = new Client(config);
     try {
-        const {rows} = await client.query(
-            `SELECT * FROM partido p, cancha c where p.cancha and "fecha" = $1`,
-            [req.params.fecha]
+        const fecha = req.params.fecha; // Espera fecha como parámetro de ruta
+        if (!fecha) {
+            return res.status(400).json({ error: e.message });
+        }
+
+        const { rows } = await client.query(
+            'SELECT * FROM partido p JOIN cancha c ON p.cancha = c.id WHERE p.fecha = $1',
+            [fecha]
         );
-        res.json(rows[0]);
-    }
-    catch (e) {
-        res.status(500).json({ error: 'No sepuede mostrar el partido' });
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'No se encontraron partidos para la fecha especificada' });
+        }
+
+        res.json(rows[0]); // Enviar el primer partido como respuesta
+    } catch (e) {
+        console.error('Error en la consulta:', e);
+        res.status(500).json({ error: e.message }); 
         await client.end();
     }
+};
 
-}
 
 
 const updatePartido = async (req, res) => {
