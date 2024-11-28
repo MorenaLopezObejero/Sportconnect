@@ -16,10 +16,12 @@ app.post("/login", regisyinises.inicioses);
 app.post("/createPartido", partido.createPartido); //listo 
 app.delete("/deletePartido/:id", partido.deletePartido); //listo
 app.get("/getPartido", partido.getPartido); //listo
+
 app.get("/getPartidos", partido.getPartidos); //listo
 app.put("/updatepartido", partido.updatePartido);
 app.get("/getPartidoDate/:fecha", partido.getPartidoDate) //listo
 //exports.getPartidoDate = getPartidoDate;
+app.get("/getPartidosPorMes", partido.getPartidosPorMes) //chequear 
 app.post("/createCancha", cancha.createCancha); //listo
 app.get("/getCancha", cancha.getCancha); //listo
 app.delete("/deleteCancha/:id", cancha.deleteCancha); //listo   

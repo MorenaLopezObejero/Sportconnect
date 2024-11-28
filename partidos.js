@@ -80,13 +80,38 @@ const getPartidoDate = async (req, res) => {
             return res.status(404).json({ error: 'No se encontraron partidos para la fecha especificada' });
         }
 
-        res.json(rows[0]); // Enviar el primer partido como respuesta
+        res.status(200).json(rows);
     } catch (e) {
         console.error('Error en la consulta:', e);
-        res.status(500).json({ error: e.message }); 
-        await client.end();
+        res.status(500).json({ error: 'Ocurrió un error en el servidor' });
     }
 };
+
+
+const getPartidosPorMes = async (req, res) => {
+    try {
+        const { inicio, fin } = req.query; // inicio y fin son las fechas del rango
+
+        if (!inicio || !fin) {
+            return res.status(400).json({ error: "Se requieren las fechas de inicio y fin" });
+        }
+
+        const query = 
+            'SELECT * FROM partido p JOIN cancha c ON p.cancha = c.id WHERE fecha BETWEEN $1 AND $2 ORDER BY fecha, hora'
+        ;
+        const { rows } = await client.query(query, [inicio, fin]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: "No se encontraron partidos para este mes" });
+        }
+
+        res.json(rows); // Devuelve todos los partidos en el rango
+    } catch (e) {
+        console.error("Error al obtener los partidos:", e);
+        res.status(500).json({ error: e.message });
+    }
+};
+
 
 
 
@@ -132,7 +157,8 @@ const partido = {
     deletePartido,
     createPartido,
     getPartidoDate,
-    getPartidos
+    getPartidos,
+    getPartidosPorMes
 }
 
 export default partido
